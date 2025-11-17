@@ -22,7 +22,7 @@ u0 = 0.48; %y0 will be Data(1,1)
 u2 = 0.8;% final step
 
 
-u_star = 0.3; % u_star is small variation input ( u = u0 + u_star)
+%u_star = 0.3; % u_star is small variation input ( u = u0 + u_star)
 DataCommands=u1*ones(N0,1); %Vector storing the input sent to the plant. 
 cond=1; %Set the condition variable to 1.
 i=1; %Set the counter to 1.
@@ -43,7 +43,7 @@ while cond==1
          input=u0 ; %Input of the system (current). 
          DataCommands(i) =  input ;
      end 
-     if (i*Ts > 20)
+     if (i*Ts >= 20)
          input = u2;
          DataCommands(i) =  input ;
      end 
