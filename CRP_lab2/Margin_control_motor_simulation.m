@@ -2,7 +2,7 @@ close all; clear; clc;
 % Acess the stability margin of the control motor simulation;
 
 load('data for tf of motor 2.mat'); %load exp data
-k_p = 1.938; % proportional gain for P controller
+k_p = 2.5; % proportional gain for P controller
 D_motor = k_p; 
 TF_motor = tf([3.401], [0.9531 1]); % Transfer function of Motor around the choosen operating point
 Delay = Ts; %  Delay define the calculation time of ADC and DAC; also the ZOH impact
