@@ -23,7 +23,7 @@ speed_init = 5; %rad/s it is our U_velocity(0) or u(k-1) = u(0) in discrete appr
 %operating point of the current 
 i0 = 0.9; % V
 %?????????????
-prev_speed_command = speed_init;% Should I put it to zero? because is our small signal velocity command which is u(0);
+prev_speed_command =0;% speed_init;% Should I put it to zero? because is our small signal velocity command which is u(0);
 
 position_ref = init_position*ones(N0,1); % cm ;position reference vector
 Data_error = zeros(N0,1);
@@ -83,9 +83,10 @@ while cond==1
     Data(i,1) = speed_rad; % store the real speed of the motor in rad/s
     real_position_cm(i,1) = position_cm; % the real position of ring in cm; Data(:,2) has it but in volt
     %position_ref vector give the tracking ring position
-    speed_reference(i,1) = ref_speed; % reference speed compute by the output of the position controller but has to be in big signal
-    %if initial prev_speed_command is 0 so change its initialisation and write
-    %speed_reference(i,1) = ref_speed + speed_init; %in rad/s 
+    speed_reference(i,1) = ref_speed + speed_init; % (rad/s)reference speed compute by the output of the position controller but has to be in big signal
+    %???????
+    %if initial prev_speed_command is speed_inti so change its initialisation and write
+    %speed_reference(i,1) = ref_speed; %in rad/s 
 
     % store error and speed command for iteration
     prev_error = error;
