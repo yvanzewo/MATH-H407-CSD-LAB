@@ -36,8 +36,8 @@ prev_error = 0; % to store the previous error
 
 
 kp_m = 2.5;
-ki =0.496%1.834 %0.496;
-kp_r =0.251%1.31 %0.251;
+ki =1.834 %0.496;
+kp_r =1.31 %0.251;
 Dm_s = tf([kp_r ki], [1 0]); % tranfer function of ring controller in continous 
 Dm_d = c2d(Dm_s,Ts,'Tustin'); % discrete transfer function of ring controller i
 position_cm = 0; % to store the conversion of the voltage position in cm

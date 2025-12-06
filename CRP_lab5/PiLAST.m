@@ -6,7 +6,7 @@ close all; clc; clear;
 openinout; %Open the ports of the analog computer.
 
 fc = 40; % cutt off of the butterworth filter
-fs = 2*fc; % sampling frequency
+fs = 2*(fc+10); % sampling frequency
 Ts = 1/fs; 
 Tcycle = Ts;
 lengthExp=30; %Set the length of the experiment (in seconds). 
@@ -47,15 +47,22 @@ Xvolt = [3.09,3.27,3.36,3.54,3.73,3.97,4.17,4.52,4.87,5.23,5.74,6.45,7.30,7.82 ]
 Xcm = [21.7	20.7	19.7	18.7	17.7	16.7	15.7	14.7	13.7	12.7	11.7	10.7	9.7,8];
 
 % Design a ramp
+% time to design the reference
+T1 = 5; %second
+N1 = (T1/lengthExp)*N0;
+T2 = 15;
+N2 = (T2/lengthExp)*N0;
+T3 = 20;
+N3 = (T3/lengthExp)*N0;
 for j = 1:N0
-    if (j<= (N0/6))
-         position_ref(j) = init_position + 0.56*(j-1)*Ts;
-    elseif (j > N0/6) && (j <= N0/2)
-        position_ref(j) = final_position;
-    elseif (j>N0/2) && (j<= 2*N0/3)
-        position_ref(j) = final_position + 0.44*(j-1)*Ts;
+    if (j<= N1)
+         position_ref(j) = init_position + ((eq_position-init_position)/(T1))*(j-1)*Ts;
+    elseif (j > N1) && (j <= N2)
+        position_ref(j) = eq_position;
+    elseif (j>N2) && (j<= N3)
+        position_ref(j) = eq_position + ((final_position-eq_position)/(T3-T2))*((j-N2)-1)*Ts;
     else 
-        position_ref(j) = 13;
+        position_ref(j) = final_position;
     end
 end
 

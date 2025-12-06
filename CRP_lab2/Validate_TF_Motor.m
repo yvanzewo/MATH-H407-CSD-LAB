@@ -14,13 +14,25 @@ load('data for tf of motor 3.mat'); %load experiment data
 
 y_small_signal = y(start:finish)-y_offset; % output small signal that interested us 
 time_interested = time(start:finish)-start*Ts;
-
-figure
+N1 = length(time_interested);
+small_current = 0.2*ones(N1,1);
+for i =1:1/Ts
+    small_current(i,1) = 0;
+end
+subplot(2,1,1)
 plot(out.simout.Time ,out.simout.Data(:,1),time_interested,y_small_signal)
 title('Transfer function validation of motor');
-legend("Simulated function","experiment function")
+legend("Simulated function","experimental function")
 xlabel("Time(s)");
-ylabel("Amplitude(V)");
+ylabel("Motor velocity in small signal(V)");
 xlim([0 11]);
+
+subplot(2,1,2)
+plot(time_interested,small_current)
+ylabel("Motor current in small signal(V)");
+xlabel("Time(s)");
+xlim ([0,11]);
+ylim([0,0.22]);
+
 
 
